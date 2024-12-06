@@ -6,14 +6,13 @@ DEV_MODE = False
 
 
 def main(game_board: [[int, ], ]) -> [[int, ], ]:
-    i = 0
-    while i < 2:
-        random_num1 = random.randint(0,3)
-        random_num2 = random.randint(0,3)
-        random_num3 = random.choice([2,4])
-            
-        game_board[random_num1][random_num2] = random_num3
-        i += 1
+    
+    piece = generate_piece(game_board)
+    game_board[piece['row']][piece['column']] = piece['value']
+    
+    piece = generate_piece(game_board)
+    game_board[piece['row']][piece['column']] = piece['value']
+    
     print_board(game_board)
         
     user_input = str(input())
@@ -76,3 +75,5 @@ if __name__ == "__main__":
           [0, 0, 0, 0],
           [0, 0, 0, 0]])
    
+    
+

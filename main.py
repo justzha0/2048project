@@ -13,6 +13,7 @@ def main(game_board: [[int, ], ]) -> [[int, ], ]:
     piece = generate_piece(game_board)
     game_board[piece['row']][piece['column']] = piece['value']
     
+    game_over(game_board)
     print_board(game_board)
         
     user_input = str(input())
@@ -59,6 +60,19 @@ def main(game_board: [[int, ], ]) -> [[int, ], ]:
 
 
 def game_over(game_board: [[int, ], ]) -> bool:
+      
+    result_list = []
+    for row in game_board:
+        if 0 in row:
+            return False
+            
+    for i in range(4):
+        for j in range(4):
+            if i < 3 and game_board[i][j] == game_board[i+1][j]:
+                return False
+            if j < 3 and game_board[i][j] == game_board[i][j+1]:
+                return False
+        
     """
     Query the provided board's game state.
 
@@ -66,7 +80,7 @@ def game_over(game_board: [[int, ], ]) -> bool:
     :return: Boolean indicating if the game is over (True) or not (False)
     """
     # TODO: Loop over the board and determine if the game is over
-    return False  # TODO: Don't always return false
+    return True  # TODO: Don't always return false
 
 
 if __name__ == "__main__":
@@ -75,5 +89,3 @@ if __name__ == "__main__":
           [0, 0, 0, 0],
           [0, 0, 0, 0]])
    
-    
-

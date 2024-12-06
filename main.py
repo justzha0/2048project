@@ -1,9 +1,18 @@
 from utilities import generate_piece, print_board
+import random
+import sys
 
 DEV_MODE = False
 
 
 def main(game_board: [[int, ], ]) -> [[int, ], ]:
+    user_input = str(input())
+    
+    if user_input == 'q':
+        print("Goodbye")
+    else:
+        for item in game_board:
+            print(*item, end='')
     """
     2048 main function, runs a game of 2048 in the console.
 
@@ -56,3 +65,5 @@ if __name__ == "__main__":
           [0, 0, 0, 0],
           [0, 0, 0, 0],
           [0, 0, 0, 0]])
+   
+    

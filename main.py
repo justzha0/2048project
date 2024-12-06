@@ -11,8 +11,15 @@ def main(game_board: [[int, ], ]) -> [[int, ], ]:
     if user_input == 'q':
         print("Goodbye")
     else:
-        for item in game_board:
-            print(*item, end='')
+        i = 0
+        while i < 2:
+            random_num1 = random.randint(0,3)
+            random_num2 = random.randint(0,3)
+            random_num3 = random.choice([2,4])
+            
+            game_board[random_num1][random_num2] = random_num3
+            i += 1
+        print_board(game_board)
     """
     2048 main function, runs a game of 2048 in the console.
 
@@ -67,3 +74,4 @@ if __name__ == "__main__":
           [0, 0, 0, 0]])
    
     
+

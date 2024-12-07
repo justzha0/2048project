@@ -28,25 +28,26 @@ def main(game_board: [[int, ], ]) -> [[int, ], ]:
         if user_input == 'q':
             print("Goodbye")
             break
+        
         elif user_input == 'a':
             for row in game_board:
                 row_save = []
                 for item in row:
                     if item != 0:
                         row_save.append(item)
+                
+                i = 0
+                while i < len(row_save) - 1:
+                    if row_save[i] == row_save[i + 1]:
+                        row_save[i] += row_save[i + 1]
+                        row_save.pop(i + 1) 
+                    i +=1
                     
-                num = 4        
-                while num > 0:      
-                    row[num-1] = 0
-                    num -= 1
-                for i in range(len(row_save)):
-                    if i < len(row_save)-1:
-                        if row_save[i] == row_save[i+1]:
-                            row_save[i] += row_save[i+1]
-                            row_save.remove(row_save[i+1])
-                        
-                for i,item in enumerate(row_save):  
-                    row[i] = item    
+                for i in range(4):  
+                    if i < len(row_save):
+                        row[i] = row_save[i]
+                    else:
+                        row[i] = 0
             
             piece = generate_piece(game_board)
             game_board[piece['row']][piece['column']] = piece['value']
@@ -57,32 +58,32 @@ def main(game_board: [[int, ], ]) -> [[int, ], ]:
             
         elif user_input == 'd':
             for row in game_board:
+                row.reverse()
                 row_save = []
                 for item in row:
                     if item != 0:
                         row_save.append(item)
-                    
-                num = 4        
-                while num > 0:      
-                    row[num-1] = 0
-                    num -= 1
-                for i in range(len(row_save)):
-                    if i < len(row_save)-1:
-                        row_save.reverse()
-                        if row_save[i] == row_save[i+1]:
-                            row_save[i] += row_save[i+1]
-                            row_save.remove(row_save[i+1])
-                    row_save.reverse()
-                        
-                for i,item in enumerate(row_save):  
-                        row[i] = item
-                row.reverse()
                 
+                i = 0
+                while i < len(row_save) - 1:
+                    if row_save[i] == row_save[i + 1]:
+                        row_save[i] += row_save[i + 1]
+                        row_save.pop(i + 1) 
+                    i +=1
+                    
+                for i in range(4):  
+                    if i < len(row_save):
+                        row[i] = row_save[i]
+                    else:
+                        row[i] = 0
+                row.reverse()
             piece = generate_piece(game_board)
-            game_board[piece['row']][piece['column']] = piece['value']        
+            game_board[piece['row']][piece['column']] = piece['value']
+            
             print_board(game_board)
             print()
             user_input = str(input())
+        
         else:
             print_board(game_board)
             print()
@@ -152,4 +153,3 @@ if __name__ == "__main__":
           [0, 0, 0, 0],
           [0, 0, 0, 0]])
    
-    

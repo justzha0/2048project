@@ -25,6 +25,8 @@ def main(game_board: [[int, ], ]) -> [[int, ], ]:
             print("Not a valid input...")
             user_input = str(input())
             
+        win = False  
+            
         if user_input == 'q':
             print("Goodbye")
             break
@@ -54,7 +56,7 @@ def main(game_board: [[int, ], ]) -> [[int, ], ]:
             
             print_board(game_board)
             print()
-            user_input = str(input())
+
             
         elif user_input == 'd':
             for row in game_board:
@@ -82,11 +84,18 @@ def main(game_board: [[int, ], ]) -> [[int, ], ]:
             
             print_board(game_board)
             print()
-            user_input = str(input())
         
         else:
             print_board(game_board)
             print()
+        for row in game_board:
+            for col in row:
+                if col == 2048:
+                    win = True
+        if win is True:
+            print("You win!")
+            break
+        user_input = str(input())
   
     """
     2048 main function, runs a game of 2048 in the console.
@@ -148,7 +157,7 @@ def game_over(game_board: [[int, ], ]) -> bool:
 
 
 if __name__ == "__main__":
-    main([[0, 0, 0, 0],
+    main([[0, 0, 1024, 1024],
           [0, 0, 0, 0],
           [0, 0, 0, 0],
           [0, 0, 0, 0]])

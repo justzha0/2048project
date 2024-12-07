@@ -1,6 +1,5 @@
 from utilities import generate_piece, print_board
 import random
-import sys
 
 DEV_MODE = False
 
@@ -15,14 +14,79 @@ def main(game_board: [[int, ], ]) -> [[int, ], ]:
     
     game_over(game_board)
     print_board(game_board)
+    print()
         
     user_input = str(input())
+    valid_inputs = ['w','a','s','d','q']
     
-    if user_input == 'q':
-        print("Goodbye")
-    else:
-        print_board(game_board)
-        
+    
+    while user_input:
+        while user_input not in valid_inputs:
+            print("Not a valid input...")
+            user_input = str(input())
+            
+        if user_input == 'q':
+            print("Goodbye")
+            break
+        elif user_input == 'a':
+            for row in game_board:
+                row_save = []
+                for item in row:
+                    if item != 0:
+                        row_save.append(item)
+                    
+                num = 4        
+                while num > 0:      
+                    row[num-1] = 0
+                    num -= 1
+                for i in range(len(row_save)):
+                    if i < len(row_save)-1:
+                        if row_save[i] == row_save[i+1]:
+                            row_save[i] += row_save[i+1]
+                            row_save.remove(row_save[i+1])
+                        
+                for i,item in enumerate(row_save):  
+                    row[i] = item    
+            
+            piece = generate_piece(game_board)
+            game_board[piece['row']][piece['column']] = piece['value']
+            
+            print_board(game_board)
+            print()
+            user_input = str(input())
+            
+        elif user_input == 'd':
+            for row in game_board:
+                row_save = []
+                for item in row:
+                    if item != 0:
+                        row_save.append(item)
+                    
+                num = 4        
+                while num > 0:      
+                    row[num-1] = 0
+                    num -= 1
+                for i in range(len(row_save)):
+                    if i < len(row_save)-1:
+                        row_save.reverse()
+                        if row_save[i] == row_save[i+1]:
+                            row_save[i] += row_save[i+1]
+                            row_save.remove(row_save[i+1])
+                    row_save.reverse()
+                        
+                for i,item in enumerate(row_save):  
+                        row[i] = item
+                row.reverse()
+                
+            piece = generate_piece(game_board)
+            game_board[piece['row']][piece['column']] = piece['value']        
+            print_board(game_board)
+            print()
+            user_input = str(input())
+        else:
+            print_board(game_board)
+            print()
+  
     """
     2048 main function, runs a game of 2048 in the console.
 
@@ -60,8 +124,7 @@ def main(game_board: [[int, ], ]) -> [[int, ], ]:
 
 
 def game_over(game_board: [[int, ], ]) -> bool:
-      
-    result_list = []
+
     for row in game_board:
         if 0 in row:
             return False
@@ -89,3 +152,4 @@ if __name__ == "__main__":
           [0, 0, 0, 0],
           [0, 0, 0, 0]])
    
+    
